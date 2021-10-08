@@ -5,48 +5,95 @@
   <meta charset="UTF-8"/>
 </head>
 <body>
+    <button onclick="rockChoice()" class="bt">Rock</button>
+    <button onclick='paperChoice()' class="bt">Paper</button>
+    <button onclick='scissorsChoice()' class="bt">Scissors</button>
+
+    <div class='score'>
+        <p>Player score = <span id= 'pScore'></span></p>
+        <p>computer score = <span id= 'cScore'></span></p>
+        <p>computer choice = <span id= 'cChoice'></span></p>
+        <p>player choice = <span id= 'pChoice'></span></p>
+        <p>result = <span id= 'result'></span></p>
+        
+    </div>
+
   <script>
-      let choices = ["Rock", "paper", "Scissors"]
-      function computerPlay() {
-        let randomValue = choices[Math.floor(Math.random() * choices.length)];
-        return randomValue;
+      let choices = ["rock", "paper", "scissors"]
+      let playerScore = 0;
+      let computerScore = 0;
+
+
+      function rockChoice() {
+        playerSelection = 'rock';
+        console.log(playerSelection);
+        let computerSelection = choices[Math.floor(Math.random() * choices.length)];
+        playRound();
+        console.log(playRound(playerSelection, computerSelection));
       }
-      function playRound (playerSelection, computerSelection) {
-          if (computerSelection == "Rock" && playerSelection == "paper") {
-                return "You win! paper beats rock"}
+      function paperChoice() {
+        playerSelection = 'paper';
+        console.log(playerSelection);
+        let computerSelection = choices[Math.floor(Math.random() * choices.length)];
+        playRound();
+        console.log(playRound(playerSelection, computerSelection));
+      }
+      function scissorsChoice() {
+        playerSelection = 'scissors'; 
+        console.log(playerSelection);
+        let computerSelection = choices[Math.floor(Math.random() * choices.length)];
+        playRound();
+        console.log(playRound(playerSelection, computerSelection));
+      }
+      function playRound (playerSelection, computerSelection, result) {
+          if (computerSelection == "rock" && playerSelection == "paper") {
+              playerScore += 1;
+                result = ("You win! paper beats rock");
+            }
            else if (computerSelection == "paper" && playerSelection == "paper") {
-                return "Tie!"
+                result = ("Tie!");
             }
-           else if (computerSelection == "Scissors" && playerSelection == "paper") {
-                return "You Lose! Scissors beats paper"
+           else if (computerSelection == "scissors" && playerSelection == "paper") {
+                computerScore += 1;
+                result = ("You Lose! Scissors beats paper");
             }
-           else if (computerSelection == "Rock" && playerSelection == "Rock") {
-                return "Tie!"
+           else if (computerSelection == "rock" && playerSelection == "rock") {
+                result = ("Tie!");
             }
-           else if (computerSelection == "Scissors" && playerSelection == "Scissors") {
-                return "Tie!"
+           else if (computerSelection == "paper" && playerSelection == "rock") {
+                computerScore += 1;
+                result = ("you lose! paper beats rock");
             }
+            else if (computerSelection == "scissors" && playerSelection == "rock") {
+                playerScore += 1;
+                result = ("you win! rock beats scissors");
+            }
+            else if (computerSelection == "scissors" && playerSelection == "scissors") {
+                result = ("Tie!");
+            }
+            else if (computerSelection == "paper" && playerSelection == "scissors") {
+                playerScore += 1;
+                result = ("you win! scissors beats paper");
+            }
+            else if (computerSelection == "rock" && playerSelection == "scissors") {
+                computerScore += 1;
+                result = ("you lose! rock beats scissors");
+            }
+            console.log('player score = ' + playerScore);
+            console.log('computer score = ' + computerScore);
+            if (playerScore == 5) {
+                alert('you win the game!');
+            }
+            if (computerScore == 5) {
+                alert('you lose the game!');
+            }
+            document.getElementById('pScore').innerHTML = playerScore;
+            document.getElementById('cScore').innerHTML = computerScore;
+            document.getElementById('cChoice').innerHTML = computerSelection;
+            document.getElementById('pChoice').innerHTML = playerSelection;
+            document.getElementById('result').innerHTML = result;
         }
-        function playRound2 (playerSelection, computerSelection) {
-          if (computerSelection == "Rock" && playerSelection == "paper") {
-                return "You win! paper beats rock"}
-           else if (computerSelection == "paper" && playerSelection == "paper") {
-                return "Tie!"
-            }
-           else if (computerSelection == "Scissors" && playerSelection == "paper") {
-                return "You Lose! Scissors beats paper"
-            }
-           else if (computerSelection == "Rock" && playerSelection == "Rock") {
-                return "Tie!"
-            }
-           else if (computerSelection == "Scissors" && playerSelection == "Scissors") {
-                return "Tie!"
-            }
-        }
-    const computerSelection = computerPlay();
-    const playerSelection = prompt("Rock, paper, Scissors?").toLowerCase();
-      console.log(playRound(playerSelection, computerSelection));
-      console.log(playRound2(playerSelection, computerSelection));
+
   </script>
 </body>
 </html>
